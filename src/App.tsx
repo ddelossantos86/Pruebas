@@ -1,6 +1,5 @@
 import './App.css';
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState, Component } from 'react';
 import {
   Formik,
   FormikHelpers,
@@ -11,7 +10,7 @@ import {
   ErrorMessage,
 } from 'formik';
 import { TextField, Box, Container, Select, MenuItem, InputLabel } from '@material-ui/core'
-import Button from '@material-ui/core/Button';
+import api from './axios'
 
 
 
@@ -30,10 +29,17 @@ const opciones_estado = [
 ]
 
 export const MyApp: React.FC<{}> = () => {
+
+  const  [state, cambiarstate] = useState(false);
+
+
+
+
+
   const [formularioEnviado, cambiarFormularioEnviaodo] = useState(false);
   return (
     <div>
-      <h1>Ejemplo</h1>
+      <h4>Ejemplo</h4>
       <Formik
         initialValues={{
           tematica: '',
@@ -190,7 +196,16 @@ export const MyApp: React.FC<{}> = () => {
           </Form>
         )}
       </Formik>
-    </div >
+
+
+      <div className="container">
+        <h4 className="text-center">Prueba Api</h4>
+        <div className="row">
+          { }
+        </div>
+      </div>
+    </div>
+
 
   );
 };
