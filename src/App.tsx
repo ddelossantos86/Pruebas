@@ -1,12 +1,12 @@
 import './App.css';
-import React, { useState, Component } from 'react';
+import React, { useState } from 'react';
 import {
   Formik,
   Form,
 } from 'formik';
 
-import { TextField, Box, Container, Select, MenuItem, InputLabel } from '@material-ui/core'
-import api from './axios'
+import { TextField, Box, Container, Select, MenuItem } from '@material-ui/core'
+import axios from 'axios';
 
 
 
@@ -19,6 +19,15 @@ interface MyFormValues {
 
 }
 
+interface mostrar_todo {
+  _id: string;
+  tematica: string;
+  titulo: string;
+  link: string;
+  estado: string;
+
+}
+
 const opciones_estado = [
   { value: 'Activo', label: 'Activo' },
   { value: 'Inactivo', label: 'Inactivo' }
@@ -26,7 +35,28 @@ const opciones_estado = [
 
 export const MyApp: React.FC<{}> = () => {
 
-  const  [state, cambiarstate] = useState(false);
+  
+  const [statee, cambiarState] = React.useState([]);
+  
+    React.useEffect(() => {
+    obtenerDatos()
+  }, [])
+
+  const obtenerDatos = async () => {
+
+    axios .get('http://localhost:8017/api/datos_todos').then((res) => {
+      console.log(res);
+      cambiarState (res.data.data_todo);
+     
+    })
+
+
+    
+    
+    //console.log (toda_data);
+    //cambiarState(toda_data);
+  }
+
 
 
   const [formularioEnviado, cambiarFormularioEnviaodo] = useState(false);
@@ -81,7 +111,7 @@ export const MyApp: React.FC<{}> = () => {
         }
         }
       >
-        {({ values, errors, touched,  handleChange, handleBlur }) => (
+        {({ values, errors, touched, handleChange, handleBlur }) => (
           <Form>
             <Container maxWidth="sm">
               <Box sx={{
@@ -188,14 +218,26 @@ export const MyApp: React.FC<{}> = () => {
           </Form>
         )}
       </Formik>
+ 
+ <div>
+   <ul>
+
+{
 
 
-      <div className="container">
-        <h4 className="text-center">Prueba Api</h4>
-        <div className="row">
-          { }
-        </div>
-      </div>
+statee.map((tematicas:mostrar_todo) => (
+
+<li key={tematicas._id}>{tematicas.tematica}</li>
+
+))
+  
+}
+
+   </ul>
+ </div>
+
+
+
 
 
     </div>
