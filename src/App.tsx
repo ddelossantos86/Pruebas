@@ -2,13 +2,9 @@ import './App.css';
 import React, { useState, Component } from 'react';
 import {
   Formik,
-  FormikHelpers,
-  FormikProps,
   Form,
-  Field,
-  FieldProps,
-  ErrorMessage,
 } from 'formik';
+
 import { TextField, Box, Container, Select, MenuItem, InputLabel } from '@material-ui/core'
 import api from './axios'
 
@@ -33,9 +29,6 @@ export const MyApp: React.FC<{}> = () => {
   const  [state, cambiarstate] = useState(false);
 
 
-
-
-
   const [formularioEnviado, cambiarFormularioEnviaodo] = useState(false);
   return (
     <div>
@@ -47,9 +40,8 @@ export const MyApp: React.FC<{}> = () => {
           link: '',
           dependencia: '',
           estado: ''
-
-
         }}
+
 
         validate={(valores) => {
           let errores: any = {};
@@ -89,7 +81,7 @@ export const MyApp: React.FC<{}> = () => {
         }
         }
       >
-        {({ values, errors, touched, handleSubmit, handleChange, handleBlur }) => (
+        {({ values, errors, touched,  handleChange, handleBlur }) => (
           <Form>
             <Container maxWidth="sm">
               <Box sx={{
@@ -204,6 +196,8 @@ export const MyApp: React.FC<{}> = () => {
           { }
         </div>
       </div>
+
+
     </div>
 
 
