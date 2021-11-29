@@ -1,14 +1,8 @@
 import './App.css';
 import React, { useState } from 'react';
-import {
-  Formik,
-  Form,
-} from 'formik';
-
+import { Formik, Form } from 'formik';
 import { TextField, Box, Container, Select, MenuItem } from '@material-ui/core'
 import axios from 'axios';
-
-
 
 interface MyFormValues {
   tematica: string;
@@ -16,7 +10,6 @@ interface MyFormValues {
   link: string;
   dependencia: string;
   estado: string;
-
 }
 
 interface mostrar_todo {
@@ -25,7 +18,6 @@ interface mostrar_todo {
   titulo: string;
   link: string;
   estado: string;
-
 }
 
 const opciones_estado = [
@@ -39,27 +31,22 @@ export const MyApp: React.FC<{}> = () => {
   const [statee, cambiarState] = React.useState([]);
   
     React.useEffect(() => {
-    obtenerDatos()
-  }, [])
+    obtenerDatos()}, [])
 
   const obtenerDatos = async () => {
 
-    axios .get('http://localhost:8017/api/datos_todos').then((res) => {
+    axios.get('http://localhost:8017/api/datos_todos').then((res) => {
       console.log(res);
       cambiarState (res.data.data_todo);
      
     })
-
-
-    
-    
     //console.log (toda_data);
     //cambiarState(toda_data);
   }
 
 
+  const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
 
-  const [formularioEnviado, cambiarFormularioEnviaodo] = useState(false);
   return (
     <div>
       <h4>Ejemplo</h4>
@@ -106,10 +93,20 @@ export const MyApp: React.FC<{}> = () => {
         onSubmit={(valores, { resetForm }) => {
           resetForm();
           console.log(valores)
+
           console.log('FORMULARIO ENVIADO');
-          cambiarFormularioEnviaodo(true);
+          
+           axios.post('http://localhost:8017/api/datos3', valores ).then((res) => {
+           console.log(res);
+           cambiarFormularioEnviado(true);
+
+          
+           })
+      
         }
         }
+
+        
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
           <Form>
@@ -129,9 +126,9 @@ export const MyApp: React.FC<{}> = () => {
                     onBlur={handleBlur}
                     variant="standard"
                   />
-
-                  {touched.tematica && errors.tematica && <div className="error">Por favor ingresar una Tematica</div>}
-
+                  
+                  { touched.tematica && errors.tematica && <div className="error">Por favor ingresar una Tematica</div> }
+                
                 </div>
                 <p></p>
                 <div>
@@ -206,9 +203,11 @@ export const MyApp: React.FC<{}> = () => {
                   {touched.estado && errors.estado && <div className="error">Seleccione un estado</div>}
 
                 </div>
+
                 <p></p>
                 <p></p>
                 <p></p>
+
                 <div>
                   <button className="button button1" type="submit">Guardar</button>
                   {formularioEnviado && <div className="enviado"><p>Formulario Enviado.</p></div>}
@@ -224,28 +223,20 @@ export const MyApp: React.FC<{}> = () => {
 
 {
 
-
 statee.map((tematicas:mostrar_todo) => (
 
-<li key={tematicas._id}>{tematicas.tematica}</li>
+<li key={tematicas._id}>{tematicas.tematica } - {tematicas.titulo} / {tematicas.estado}</li>
 
-))
-  
-}
+))}
 
    </ul>
  </div>
 
-
-
-
-
-    </div>
+  </div>
 
 
   );
 };
-
 
 export default MyApp;
 
