@@ -24,6 +24,7 @@
   color: white;
 }
 
+
 .App-link {
   color: #61dafb;
 }
@@ -32,26 +33,28 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
-  
+
 }
 
 .error {
-font-size: 11px;
-color: red
+  font-size: 11px;
+  color: red
 }
 
 .enviado {
   font-size: 14px;
   color: #4CAF50;
   font-weight: bold;
-  }
+}
 
-  
+
 .button {
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50;
+  /* Green */
   border: none;
   color: white;
   padding: 12px 30px;
@@ -65,12 +68,64 @@ color: red
 }
 
 .button1 {
-  background-color: white; 
-  color: black; 
-  border: 2px solid #4CAF50;
+  background-color: white;
+  color: black;
+  border: 2px solid #3061e7;
 }
 
 .button1:hover {
-  background-color: #4CAF50;
+  background-color: #3061e7;
   color: white;
+}
+
+.mi_tabla {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mi_i {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.tamano_estado {
+  width: 10%;
+}
+
+.tamano_tematica {
+  width: 30%;
+}
+
+.tamano_titulo {
+  width: 20%;
+}
+
+.tamano_link {
+  width: 10%;
+}
+
+.tamano_dependencia {
+  width: 10%;
+}
+
+.tamano_opciones {
+  width: 50%;
+}
+
+.texto_centrado {
+  text-align: center;
+
+}
+
+.modal_propiedades {
+  border: 2px solid rgb(116, 116, 116);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
 }

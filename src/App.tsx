@@ -3,13 +3,20 @@ import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
 import { TextField, Box, Container, Select, MenuItem } from '@material-ui/core'
 import axios from 'axios';
+//
+import Table from 'react-bootstrap/Table';
+import './index.css';
+import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
+
 
 interface MyFormValues {
   tematica: string;
   titulo: string;
   link: string;
-  dependencia: string;
   estado: string;
+  dependencia: string;
+
 }
 
 interface mostrar_todo {
@@ -18,27 +25,50 @@ interface mostrar_todo {
   titulo: string;
   link: string;
   estado: string;
+  dependencia: string;
 }
+
 
 const opciones_estado = [
   { value: 'Activo', label: 'Activo' },
   { value: 'Inactivo', label: 'Inactivo' }
 ]
 
-export const MyApp: React.FC<{}> = () => {
+
 
   
-  const [statee, cambiarState] = React.useState([]);
+
+export const MyApp: React.FC<{}> = () => {
+
+  let subtitle:any;
+  const [modalIsOpen, setIsOpen] = React.useState(false);
   
-    React.useEffect(() => {
-    obtenerDatos()}, [])
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+
+
+  const [statee, cambiarState] = React.useState([]);
+
+  React.useEffect(() => {
+    obtenerDatos()
+  }, [])
 
   const obtenerDatos = async () => {
 
     axios.get('http://localhost:8017/api/datos_todos').then((res) => {
       console.log(res);
-      cambiarState (res.data.data_todo);
-     
+      cambiarState(res.data.data_todo);
+
     })
     //console.log (toda_data);
     //cambiarState(toda_data);
@@ -50,7 +80,53 @@ export const MyApp: React.FC<{}> = () => {
   return (
     <div>
       <h4>Ejemplo</h4>
-      <Formik
+
+      <div>
+
+        <p></p>
+
+        <div className="mi_tabla">
+          <Table responsive="md" striped bordered hover>
+            <thead>
+              <tr>
+                <th></th>
+                <th className="tamanos_tematica">Temática</th>
+                <th className="tamanos_titulo">Titulo</th>
+                <th className="tamanos_link">Link</th>
+                <th className="tamanos_dependencia">Dependencia</th>
+                <th className="tamanos_opcion"></th>
+                <th className="tamanos_opcion"></th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+              {statee.map((tematicas: mostrar_todo) => (
+                <tr key={tematicas._id}>
+                  <td className="texto_centrado">{tematicas.estado}</td>
+                  <td>{tematicas.tematica}</td>
+                  <td>{tematicas.titulo}</td>
+                  <td>{tematicas.link}</td>
+                  <td>{tematicas.dependencia}</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      </div>
+
+      <button className="btn btn-primary" onClick={openModal}>Nuevo</button>
+      <Modal 
+        className="modal_propiedades"
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+      >
+        <div className="mi_i">
+
+        <Formik
         initialValues={{
           tematica: '',
           titulo: '',
@@ -82,7 +158,7 @@ export const MyApp: React.FC<{}> = () => {
 
 
           if (!valores.estado) {
-            errores.estado = 'Seleccionar estado'
+            errores.estado = 'Por favor seleccionar estado'
           }
 
 
@@ -95,18 +171,18 @@ export const MyApp: React.FC<{}> = () => {
           console.log(valores)
 
           console.log('FORMULARIO ENVIADO');
-          
-           axios.post('http://localhost:8017/api/datos3', valores ).then((res) => {
-           console.log(res);
-           cambiarFormularioEnviado(true);
 
-          
-           })
-      
+          axios.post('http://localhost:8017/api/datos3', valores).then((res) => {
+            console.log(res);
+            cambiarFormularioEnviado(true);
+
+
+          })
+
         }
         }
 
-        
+
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
           <Form>
@@ -126,9 +202,9 @@ export const MyApp: React.FC<{}> = () => {
                     onBlur={handleBlur}
                     variant="standard"
                   />
-                  
-                  { touched.tematica && errors.tematica && <div className="error">Por favor ingresar una Tematica</div> }
-                
+
+                  {touched.tematica && errors.tematica && <div className="error">Por favor ingresar una Tematica</div>}
+
                 </div>
                 <p></p>
                 <div>
@@ -217,26 +293,19 @@ export const MyApp: React.FC<{}> = () => {
           </Form>
         )}
       </Formik>
- 
- <div>
-   <ul>
+      </div>
+      </Modal>
 
-{
-
-statee.map((tematicas:mostrar_todo) => (
-
-<li key={tematicas._id}>{tematicas.tematica } - {tematicas.titulo} / {tematicas.estado}</li>
-
-))}
-
-   </ul>
- </div>
-
-  </div>
+    </div>
 
 
   );
+
+  
+
+                
 };
+
 
 export default MyApp;
 
