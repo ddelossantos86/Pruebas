@@ -36,13 +36,13 @@ const opciones_estado = [
 
 
 
-  
+
 
 export const MyApp: React.FC<{}> = () => {
 
-  let subtitle:any;
+  let subtitle: any;
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  
+
   function openModal() {
     setIsOpen(true);
   }
@@ -76,10 +76,19 @@ export const MyApp: React.FC<{}> = () => {
 
 
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
+  <p></p>
 
   return (
     <div>
-      <h4>Ejemplo</h4>
+
+      <div className="mi_i2">
+        <p></p>
+        <p></p>
+        <p></p>
+        <h5>ABM</h5>
+
+        <button className="btn btn-success" onClick={openModal}>Nuevo</button></div>
+
 
       <div>
 
@@ -117,8 +126,7 @@ export const MyApp: React.FC<{}> = () => {
         </div>
       </div>
 
-      <button className="btn btn-primary" onClick={openModal}>Nuevo</button>
-      <Modal 
+      <Modal
         className="modal_propiedades"
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -126,174 +134,174 @@ export const MyApp: React.FC<{}> = () => {
       >
         <div className="mi_i">
 
-        <Formik
-        initialValues={{
-          tematica: '',
-          titulo: '',
-          link: '',
-          dependencia: '',
-          estado: ''
-        }}
+          <Formik
+            initialValues={{
+              tematica: '',
+              titulo: '',
+              link: '',
+              dependencia: '',
+              estado: ''
+            }}
 
 
-        validate={(valores) => {
-          let errores: any = {};
+            validate={(valores) => {
+              let errores: any = {};
 
-          if (!valores.tematica) {
-            errores.tematica = 'Por favor ingresar un nombre'
-          }
+              if (!valores.tematica) {
+                errores.tematica = 'Por favor ingresar un nombre'
+              }
 
-          if (!valores.titulo) {
-            errores.titulo = 'Por favor ingresar un Titulo'
-          }
+              if (!valores.titulo) {
+                errores.titulo = 'Por favor ingresar un Titulo'
+              }
 
-          if (!valores.link) {
-            errores.link = 'Por favor ingresar Link'
-          }
-
-
-          if (!valores.dependencia) {
-            errores.dependencia = 'Por favor seleccionar dependencia'
-          }
+              if (!valores.link) {
+                errores.link = 'Por favor ingresar Link'
+              }
 
 
-          if (!valores.estado) {
-            errores.estado = 'Por favor seleccionar estado'
-          }
+              if (!valores.dependencia) {
+                errores.dependencia = 'Por favor seleccionar dependencia'
+              }
+
+
+              if (!valores.estado) {
+                errores.estado = 'Por favor seleccionar estado'
+              }
 
 
 
-          return errores;
-        }}
+              return errores;
+            }}
 
-        onSubmit={(valores, { resetForm }) => {
-          resetForm();
-          console.log(valores)
+            onSubmit={(valores, { resetForm }) => {
+              resetForm();
+              console.log(valores)
 
-          console.log('FORMULARIO ENVIADO');
+              console.log('FORMULARIO ENVIADO');
 
-          axios.post('http://localhost:8017/api/datos3', valores).then((res) => {
-            console.log(res);
-            cambiarFormularioEnviado(true);
-
-
-          })
-
-        }
-        }
+              axios.post('http://localhost:8017/api/datos3', valores).then((res) => {
+                console.log(res);
+                cambiarFormularioEnviado(true);
 
 
-      >
-        {({ values, errors, touched, handleChange, handleBlur }) => (
-          <Form>
-            <Container maxWidth="sm">
-              <Box sx={{
-                width: 600,
-              }}>
-                <div>
-                  <TextField
-                    fullWidth
-                    id="tematica"
-                    name="tematica"
-                    label="Tematica"
-                    placeholder=""
-                    value={values.tematica}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    variant="standard"
-                  />
+              })
 
-                  {touched.tematica && errors.tematica && <div className="error">Por favor ingresar una Tematica</div>}
+            }
+            }
 
-                </div>
-                <p></p>
-                <div>
 
-                  <TextField
-                    fullWidth
-                    id="titulo"
-                    name="titulo"
-                    label="Titulo"
-                    placeholder=""
-                    value={values.titulo}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
+          >
+            {({ values, errors, touched, handleChange, handleBlur }) => (
+              <Form>
+                <Container maxWidth="sm">
+                  <Box sx={{
+                    width: 600,
+                  }}>
+                    <div>
+                      <TextField
+                        fullWidth
+                        id="tematica"
+                        name="tematica"
+                        label="Tematica"
+                        placeholder=""
+                        value={values.tematica}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        variant="standard"
+                      />
 
-                  {touched.titulo && errors.titulo && <div className="error">Por favor ingresar un Titulo</div>}
+                      {touched.tematica && errors.tematica && <div className="error">Por favor ingresar una Tematica</div>}
 
-                </div>
-                <p></p>
-                <div>
+                    </div>
+                    <p></p>
+                    <div>
 
-                  <TextField
-                    fullWidth
-                    id="link"
-                    name="link"
-                    label="Link"
-                    placeholder=""
-                    value={values.link}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
+                      <TextField
+                        fullWidth
+                        id="titulo"
+                        name="titulo"
+                        label="Titulo"
+                        placeholder=""
+                        value={values.titulo}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
 
-                  {touched.link && errors.link && <div className="error">Por favor ingresar un Link</div>}
+                      {touched.titulo && errors.titulo && <div className="error">Por favor ingresar un Titulo</div>}
 
-                </div>
-                <p></p>
+                    </div>
+                    <p></p>
+                    <div>
 
-                <div>
+                      <TextField
+                        fullWidth
+                        id="link"
+                        name="link"
+                        label="Link"
+                        placeholder=""
+                        value={values.link}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
 
-                  <TextField
-                    fullWidth
-                    id="dependencia"
-                    name="dependencia"
-                    label="Dependencia"
-                    placeholder=""
-                    value={values.dependencia}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
+                      {touched.link && errors.link && <div className="error">Por favor ingresar un Link</div>}
 
-                  {touched.dependencia && errors.dependencia && <div className="error">Seleccione una Dependencia</div>}
-                </div>
-                <p></p>
-                <br></br>
+                    </div>
+                    <p></p>
 
-                <div>
-                  <Select
-                    fullWidth
-                    id="estado"
-                    name="estado"
-                    label="Estado"
-                    placeholder="Seleccionar Estado"
-                    value={values.estado}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  >
-                    <MenuItem value={''}></MenuItem>
-                    <MenuItem value={'Activo'}>Activo</MenuItem>
-                    <MenuItem value={'Inactivo'}>Inactivo</MenuItem>
-                  </Select>
+                    <div>
 
-                  {touched.estado && errors.estado && <div className="error">Seleccione un estado</div>}
+                      <TextField
+                        fullWidth
+                        id="dependencia"
+                        name="dependencia"
+                        label="Dependencia"
+                        placeholder=""
+                        value={values.dependencia}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
 
-                </div>
+                      {touched.dependencia && errors.dependencia && <div className="error">Seleccione una Dependencia</div>}
+                    </div>
+                    <p></p>
+                    <br></br>
 
-                <p></p>
-                <p></p>
-                <p></p>
+                    <div>
+                      <Select
+                        fullWidth
+                        id="estado"
+                        name="estado"
+                        label="Estado"
+                        placeholder="Seleccionar Estado"
+                        value={values.estado}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      >
+                        <MenuItem value={''}></MenuItem>
+                        <MenuItem value={'Activo'}>Activo</MenuItem>
+                        <MenuItem value={'Inactivo'}>Inactivo</MenuItem>
+                      </Select>
 
-                <div>
-                  <button className="button button1" type="submit">Guardar</button>
-                  {formularioEnviado && <div className="enviado"><p>Formulario Enviado.</p></div>}
-                </div>
-              </Box>
-            </Container>
-          </Form>
-        )}
-      </Formik>
-      </div>
+                      {touched.estado && errors.estado && <div className="error">Seleccione un estado</div>}
+
+                    </div>
+
+                    <p></p>
+                    <p></p>
+                    <p></p>
+
+                    <div>
+                      <button className="button button1" type="submit">Guardar</button>
+                      {formularioEnviado && <div className="enviado"><p>Formulario Enviado.</p></div>}
+                    </div>
+                  </Box>
+                </Container>
+              </Form>
+            )}
+          </Formik>
+        </div>
       </Modal>
 
     </div>
@@ -301,9 +309,9 @@ export const MyApp: React.FC<{}> = () => {
 
   );
 
-  
 
-                
+
+
 };
 
 
