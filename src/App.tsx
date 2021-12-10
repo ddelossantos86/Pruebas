@@ -8,6 +8,11 @@ import Table from 'react-bootstrap/Table';
 import './index.css';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
+//
+import Chip from '@mui/material/Chip';
+import Autocomplete from '@mui/material/Autocomplete';
+//
+import { FaEdit } from 'react-icons/fa';
 
 
 interface MyFormValues {
@@ -16,6 +21,7 @@ interface MyFormValues {
   link: string;
   estado: string;
   dependencia: string;
+  etiqueta: string[];
 
 }
 
@@ -26,17 +32,17 @@ interface mostrar_todo {
   link: string;
   estado: string;
   dependencia: string;
+  etiqueta: string[];
 }
-
 
 const opciones_estado = [
   { value: 'Activo', label: 'Activo' },
   { value: 'Inactivo', label: 'Inactivo' }
 ]
 
-
-
-
+const top100Films = [
+  { title: '', year: 0 }
+];
 
 export const MyApp: React.FC<{}> = () => {
 
@@ -61,6 +67,12 @@ export const MyApp: React.FC<{}> = () => {
 
   React.useEffect(() => {
     obtenerDatos()
+
+
+
+
+
+    
   }, [])
 
   const obtenerDatos = async () => {
@@ -104,7 +116,6 @@ export const MyApp: React.FC<{}> = () => {
                 <th className="tamanos_link">Link</th>
                 <th className="tamanos_dependencia">Dependencia</th>
                 <th className="tamanos_opcion"></th>
-                <th className="tamanos_opcion"></th>
 
 
               </tr>
@@ -117,8 +128,8 @@ export const MyApp: React.FC<{}> = () => {
                   <td>{tematicas.titulo}</td>
                   <td>{tematicas.link}</td>
                   <td>{tematicas.dependencia}</td>
-                  <td></td>
-                  <td></td>
+                  <td className="mi_td"><FaEdit /></td>
+                  
                 </tr>
               ))}
             </tbody>
@@ -140,7 +151,8 @@ export const MyApp: React.FC<{}> = () => {
               titulo: '',
               link: '',
               dependencia: '',
-              estado: ''
+              estado: '',
+              etiqueta: [{etiqueta_nombre:''}]
             }}
 
 
@@ -168,8 +180,6 @@ export const MyApp: React.FC<{}> = () => {
               if (!valores.estado) {
                 errores.estado = 'Por favor seleccionar estado'
               }
-
-
 
               return errores;
             }}
@@ -263,13 +273,45 @@ export const MyApp: React.FC<{}> = () => {
                         onBlur={handleBlur}
                       />
 
-                      {touched.dependencia && errors.dependencia && <div className="error">Seleccione una Dependencia</div>}
+                      {touched.estado && errors.estado && <div className="error">Seleccione una Dependencia</div>}
                     </div>
-                    <p></p>
-                    <br></br>
+
 
                     <div>
+                      <p>
+                        <Autocomplete
+                          className="mi_autocomplete"
+                          multiple
+                          id="tags-filled"
+                          options={top100Films.map((option) => option.title)}
+                          defaultValue={[]}
+                          freeSolo
+                          renderTags={(value: readonly string[], getTagProps) =>
+                            value.map((option: string, index: number) => (
+                              <Chip variant="outlined" label={option} {...getTagProps({ index })}
+                              />
+                            ))
+                          }
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              id="etiqueta_nombre"
+                              name="etiqueta_nombre"
+                              variant="standard"
+                              label="Etiquetas"
+                              value={values.etiqueta}
+                              placeholder=""
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                            />
+                          )}
+                        />
+
+                      </p>
+                    </div>
+                    <div>
                       <Select
+                        className="mi_autocomplete"
                         fullWidth
                         id="estado"
                         name="estado"
@@ -279,7 +321,6 @@ export const MyApp: React.FC<{}> = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                       >
-                        <MenuItem value={''}></MenuItem>
                         <MenuItem value={'Activo'}>Activo</MenuItem>
                         <MenuItem value={'Inactivo'}>Inactivo</MenuItem>
                       </Select>
@@ -287,6 +328,7 @@ export const MyApp: React.FC<{}> = () => {
                       {touched.estado && errors.estado && <div className="error">Seleccione un estado</div>}
 
                     </div>
+
 
                     <p></p>
                     <p></p>

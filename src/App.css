@@ -79,9 +79,14 @@
 
 
 .mi_tabla {
-  width: 80%;
+  width: 60%;
   margin-left: auto;
   margin-right: auto;
+  
+}
+
+.mi_td {
+  text-align: center;
 }
 
 .mi_i {
@@ -118,28 +123,32 @@
 }
 
 .tamano_opciones {
-  width: 50%;
+  width: 10%;
 }
 
 .texto_centrado {
   text-align: center;
 
 }
+.mi_autocomplete {
+  padding-top: 20px;
+
+}
+
 
 .modal_propiedades {
   position: fixed;
-  padding-right: 400px;
+  padding-right: 500px;
   padding-top: 20px;
   position: relative;
   border-color:#282c34;
-  background-color: transparent;
+  background-color: rgb(247, 247, 247);
   overflow: hidden;
-  position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 50%;
-  height: 50%;
+  width: 40%;
+  height: 58vh;
   z-index: 999;
   transition: background-color 0.25s ease
 }
